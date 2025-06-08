@@ -1,43 +1,49 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Golu Ludo - Withdrawal Demo</title>
-  <style>
-    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
-    .container { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; }
-    input, button { width: 100%; padding: 10px; margin: 10px 0; font-size: 16px; }
-    .status { margin-top: 15px; font-weight: bold; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golu Ludo Withdrawal</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 20px; text-align: center; }
+        .container { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, button { width: 90%; padding: 10px; margin: 10px 0; font-size: 16px; }
+        .result { margin-top: 20px; font-size: 18px; font-weight: bold; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h2>💰 Golu Ludo - Withdraw Coins</h2>
-    <input id="amount" type="number" placeholder="Enter Amount (₹)" />
-    <input id="upi" type="text" placeholder="Enter UPI ID" />
-    <button onclick="handleWithdraw()">Withdraw</button>
-    <div class="status" id="status"></div>
-  </div>
+    <div class="container">
+        <h2>💰 Golu Ludo Withdrawal</h2>
+        <input type="number" id="amount" placeholder="Enter Amount (₹)">
+        <input type="text" id="upi" placeholder="Enter UPI ID">
+        <button onclick="processWithdrawal()">Submit Request</button>
+        <div class="result" id="result"></div>
+    </div>
 
-  <script>
-    function handleWithdraw() {
-      const amount = parseFloat(document.getElementById('amount').value);
-      const upi = document.getElementById('upi').value;
-      const statusEl = document.getElementById('status');
+    <script>
+        function processWithdrawal() {
+            const amount = parseFloat(document.getElementById("amount").value);
+            const upi = document.getElementById("upi").value.trim();
+            const result = document.getElementById("result");
 
-      if (!amount || !upi) {
-        statusEl.innerText = '❌ Please enter valid amount and UPI ID.';
-        return;
-      }
+            if (isNaN(amount) || amount <= 0) {
+                result.textContent = "❌ Please enter a valid amount.";
+                return;
+            }
 
-      if (amount < 95) {
-        statusEl.innerText = '❌ Minimum withdrawal is ₹95.';
-      } else if (amount >= 95 && amount <= 200) {
-        statusEl.innerText = `✅ ₹${amount} sent to ${upi} (Auto Approved).`;
-      } else {
-        statusEl.innerText = `⏳ ₹${amount} sent to admin for manual approval.`;
-      }
-    }
-  </script>
+            if (upi === "") {
+                result.textContent = "❌ Please enter your UPI ID.";
+                return;
+            }
+
+            if (amount < 95) {
+                result.textContent = "❌ Minimum withdrawal is ₹95.";
+                return;
+            }
+
+            result.textContent = "⏳ Withdrawal request submitted. Manual approval required.";
+        }
+    </script>
 </body>
 </html>
