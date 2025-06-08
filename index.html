@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Golu Ludo - Withdrawal Demo</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+    .container { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; font-size: 16px; }
+    .status { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💰 Golu Ludo - Withdraw Coins</h2>
+    <input id="amount" type="number" placeholder="Enter Amount (₹)" />
+    <input id="upi" type="text" placeholder="Enter UPI ID" />
+    <button onclick="handleWithdraw()">Withdraw</button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <script>
+    function handleWithdraw() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const upi = document.getElementById('upi').value;
+      const statusEl = document.getElementById('status');
+
+      if (!amount || !upi) {
+        statusEl.innerText = '❌ Please enter valid amount and UPI ID.';
+        return;
+      }
+
+      if (amount < 95) {
+        statusEl.innerText = '❌ Minimum withdrawal is ₹95.';
+      } else if (amount >= 95 && amount <= 200) {
+        statusEl.innerText = `✅ ₹${amount} sent to ${upi} (Auto Approved).`;
+      } else {
+        statusEl.innerText = `⏳ ₹${amount} sent to admin for manual approval.`;
+      }
+    }
+  </script>
+</body>
+</html>
